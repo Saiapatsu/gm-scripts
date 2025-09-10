@@ -22,7 +22,7 @@ window.tracks = tracksJsonParsed;
 
 function urloutput(href) {
 	const decoded = decodeURIComponent(href.slice(href.lastIndexOf("/") + 1));
-	if (/["<>|&]/.test(decoded)) return "# " + href;
+	if (/["<>|&\/\\]/.test(decoded)) return "# " + href;
 	return `url=${href}\noutput="${decoded}"`;
 }
 
@@ -30,6 +30,7 @@ const curlk = [
 	"# Don't forget to adjust file extension from .mp3 to .flac or .mid as needed",
 	"--globoff",
 	"--skip-existing",
+	"--create-dirs",
 	`--output-dir ${slug}`,
 	`--dump-header ${slug}\\headers.txt`,
 	`url=https://downloads.khinsider.com/game-soundtracks/album/${slug}`,
@@ -37,6 +38,7 @@ const curlk = [
 	`url=https://downloads.khinsider.com/game-soundtracks/album/${slug}/change_log`,
 	"output=change_log.html",
 	`url=https://vgmtreasurechest.com/soundtracks/${slug}/khinsider.info.txt`,
+	"output=khinsider.info.txt",
 	// Cover images
 	...Array.map(document.getElementsByClassName("albumImage"), x => urloutput(x.firstElementChild.href)),
 	// Tracks
