@@ -27,6 +27,7 @@ function urloutput(href) {
 }
 
 const curlk = [
+	"# Don't forget to adjust file extension from .mp3 to .flac or .mid as needed",
 	"--globoff",
 	"--skip-existing",
 	`--output-dir ${slug}`,
