@@ -32,7 +32,7 @@ const curlk = [
 	"--skip-existing",
 	"--create-dirs",
 	`--output-dir ${slug}`,
-	`--dump-header ${slug}\\headers.txt`,
+	`--dump-header ${slug}/headers.txt`,
 	`url=https://downloads.khinsider.com/game-soundtracks/album/${slug}`,
 	"output=index.html",
 	`url=https://downloads.khinsider.com/game-soundtracks/album/${slug}/change_log`,
