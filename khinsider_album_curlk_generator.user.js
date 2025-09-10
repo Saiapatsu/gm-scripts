@@ -20,14 +20,14 @@ const tracksJsonParsed = JSON.parse(tracksJsonStr);
 
 window.tracks = tracksJsonParsed;
 
-function urloutput(href) {
-	const decoded = decodeURIComponent(href.slice(href.lastIndexOf("/") + 1));
-	if (/["<>|&\/\\]/.test(decoded)) return "# " + href;
-	return `url=${href}\noutput="${decoded}"`;
-}
+const comments = [
+	"# Don't forget to adjust file extension from .mp3 to .flac or .mid as needed",
+];
+
+if (slug_wtf) comments.push("# Original slug: " + slug_real);
 
 const curlk = [
-	"# Don't forget to adjust file extension from .mp3 to .flac or .mid as needed",
+	comments,
 	"--globoff",
 	"--skip-existing",
 	"--create-dirs",
@@ -39,14 +39,19 @@ const curlk = [
 	"output=change_log.html",
 	`url=https://vgmtreasurechest.com/soundtracks/${slug}/khinsider.info.txt`,
 	"output=khinsider.info.txt",
-	// Cover images
-	...Array.map(document.getElementsByClassName("albumImage"), x => urloutput(x.firstElementChild.href)),
-	// Tracks
-	...tracks.map(x => urloutput("https://" + x.file)),
+	Array.map(document.getElementsByClassName("albumImage"), x => urloutput(x.firstElementChild.href)),
+	tracks.map(x => urloutput("https://" + x.file)),
 	"",
-];
+].flat();
 
-if (slug_wtf) curlk.unshift("# Original slug: " + slug_real);
+function urloutput(href) {
+	const decoded = decodeURIComponent(href.slice(href.lastIndexOf("/") + 1));
+	if (/["<>|&\/\\]/.test(decoded)) {
+		comments.push("# " + href);
+		return "# " + href;
+	}
+	return `url=${href}\noutput="${decoded}"`;
+}
 
 console.log(curlk);
 
