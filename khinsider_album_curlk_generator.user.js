@@ -21,7 +21,7 @@ const tracksJsonParsed = JSON.parse(tracksJsonStr);
 window.tracks = tracksJsonParsed;
 
 const comments = [
-	"# Don't forget to adjust file extension from .mp3 to .flac or .mid as needed",
+	"# Replace .mp3 with .flac or .mid as needed",
 ];
 
 if (slug_wtf) comments.push("# Original slug: " + slug_real);
