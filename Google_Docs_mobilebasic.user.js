@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Google Docs mobilebasic
 // @namespace   Wist
-// @include     http*://docs.google.com/document/d/*
+// @include     https://docs.google.com/document/d/*
 // @version     1
 // @grant       none
 // @run-at      document-start
