@@ -29,6 +29,7 @@ if (slug_wtf) comments.push("# Original slug: " + slug_real);
 const curlk = [
 	comments,
 	"--globoff",
+	"--location",
 	"--skip-existing",
 	"--create-dirs",
 	`--output-dir ${slug}`,
