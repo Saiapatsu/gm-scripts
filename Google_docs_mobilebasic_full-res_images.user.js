@@ -15,10 +15,20 @@ Array.forEach(document.getElementsByTagName("img"), node => {
 // Strip Google redirector from links
 Array.forEach(document.getElementsByTagName("a"), a => {
 	if (!a.href) return;
-	const url = new URL(a.href);
-	const q = url.searchParams.get("q");
-	if (!q) return;
-	a.href = new URL(q).searchParams.get("q");
+	var url = new URL(a.href);;
+	while (true) {
+		const q = url.searchParams.get("q");
+		if (q) {
+			url = new URL(q);
+		} else {
+			a.href = url;
+			return;
+		}
+	}
+	// const url = new URL(a.href);
+	// const q = url.searchParams.get("q");
+	// if (!q) return;
+	// a.href = new URL(q).searchParams.get("q");
 });
 
 // Remove app-container's scrollbar
