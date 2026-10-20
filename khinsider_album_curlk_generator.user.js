@@ -11,6 +11,7 @@
 const slug_real = location.pathname.match(/^\/game-soundtracks\/album\/([^\/]+)/)[1];
 const slug = slug_real.replaceAll(/[^a-zA-Z0-9_-]/g, "-");
 const slug_wtf = slug !== slug_real;
+const slug2 = slug + " ;khinsider";
 
 // Extract player's track list
 const playerpack = document.getElementById("pageContent").firstElementChild.innerText;
@@ -32,13 +33,13 @@ const curlk = [
 	"--location",
 	"--skip-existing",
 	"--create-dirs",
-	`--output-dir ${slug}`,
-	`--dump-header ${slug}/headers.txt`,
-	`url=https://downloads.khinsider.com/game-soundtracks/album/${slug}`,
+	`--output-dir ${slug2}`,
+	`--dump-header ${slug2}/headers.txt`,
+	`url=https://downloads.khinsider.com/game-soundtracks/album/${slug2}`,
 	"output=index.html",
-	`url=https://downloads.khinsider.com/game-soundtracks/album/${slug}/change_log`,
+	`url=https://downloads.khinsider.com/game-soundtracks/album/${slug2}/change_log`,
 	"output=change_log.html",
-	`url=https://vgmtreasurechest.com/soundtracks/${slug}/khinsider.info.txt`,
+	`url=https://vgmtreasurechest.com/soundtracks/${slug2}/khinsider.info.txt`,
 	"output=khinsider.info.txt",
 	Array.map(document.getElementsByClassName("albumImage"), x => urloutput(x.firstElementChild.href)),
 	tracks.map(x => urloutput("https://" + x.file)),
