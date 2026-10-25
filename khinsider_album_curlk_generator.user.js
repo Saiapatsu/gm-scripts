@@ -23,22 +23,31 @@ window.tracks = tracksJsonParsed;
 
 const comments = [
 	"# Replace .mp3 with .flac or .mid as needed",
+	"# Cloudflare applies to the album page and its changelog, you need to use your browser for those",
 ];
 
 if (slugWasModified) comments.push("# Original slug: " + slugUrl);
 
+const urlIndex     = `https://downloads.khinsider.com/game-soundtracks/album/${slugUrl}`;
+const urlChangelog = `https://downloads.khinsider.com/game-soundtracks/album/${slugUrl}/change_log`;
+const wdl = [
+	{name: "index.html", url: urlIndex},
+	{name: "change_log.html", url: urlChangelog},
+];
+
 const curlk = [
 	comments,
+	`# wist.download(${JSON.stringify(wdl).replaceAll("\n", "")}, ${JSON.stringify(slugDir)})`,
 	"--globoff",
 	"--location",
 	"--skip-existing",
 	"--create-dirs",
 	`--output-dir ${slugDir}`,
 	`--dump-header ${slugDir}/headers.txt`,
-	`url=https://downloads.khinsider.com/game-soundtracks/album/${slugUrl}`,
-	"output=index.html",
-	`url=https://downloads.khinsider.com/game-soundtracks/album/${slugUrl}/change_log`,
-	"output=change_log.html",
+	`# url=${urlIndex}`,
+	"# output=index.html",
+	`# url=${urlChangelog}`,
+	"# output=change_log.html",
 	`url=https://vgmtreasurechest.com/soundtracks/${slugUrl}/khinsider.info.txt`,
 	"output=khinsider.info.txt",
 	Array.map(document.getElementsByClassName("albumImage"), x => urloutput(x.firstElementChild.href)),
