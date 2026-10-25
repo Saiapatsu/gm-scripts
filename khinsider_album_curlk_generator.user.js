@@ -8,10 +8,10 @@
 
 ;(()=>{
 
-const slug_real = location.pathname.match(/^\/game-soundtracks\/album\/([^\/]+)/)[1];
-const slug = slug_real.replaceAll(/[^a-zA-Z0-9_-]/g, "-");
-const slug_wtf = slug !== slug_real;
-const slug2 = slug + " ;khinsider";
+const slugUrl = location.pathname.match(/^\/game-soundtracks\/album\/([^\/]+)/)[1];
+const slugSlugged = slugUrl.replaceAll(/[^a-zA-Z0-9_-]/g, "-");
+const slugWasModified = slugSlugged !== slugUrl;
+const slugDir = slugSlugged + " ;khinsider";
 
 // Extract player's track list
 const playerpack = document.getElementById("pageContent").firstElementChild.innerText;
@@ -25,7 +25,7 @@ const comments = [
 	"# Replace .mp3 with .flac or .mid as needed",
 ];
 
-if (slug_wtf) comments.push("# Original slug: " + slug_real);
+if (slugWasModified) comments.push("# Original slug: " + slugUrl);
 
 const curlk = [
 	comments,
@@ -33,13 +33,13 @@ const curlk = [
 	"--location",
 	"--skip-existing",
 	"--create-dirs",
-	`--output-dir ${slug2}`,
-	`--dump-header ${slug2}/headers.txt`,
-	`url=https://downloads.khinsider.com/game-soundtracks/album/${slug2}`,
+	`--output-dir ${slugDir}`,
+	`--dump-header ${slugDir}/headers.txt`,
+	`url=https://downloads.khinsider.com/game-soundtracks/album/${slugUrl}`,
 	"output=index.html",
-	`url=https://downloads.khinsider.com/game-soundtracks/album/${slug2}/change_log`,
+	`url=https://downloads.khinsider.com/game-soundtracks/album/${slugUrl}/change_log`,
 	"output=change_log.html",
-	`url=https://vgmtreasurechest.com/soundtracks/${slug2}/khinsider.info.txt`,
+	`url=https://vgmtreasurechest.com/soundtracks/${slugUrl}/khinsider.info.txt`,
 	"output=khinsider.info.txt",
 	Array.map(document.getElementsByClassName("albumImage"), x => urloutput(x.firstElementChild.href)),
 	tracks.map(x => urloutput("https://" + x.file)),
