@@ -9,8 +9,9 @@
 ;(()=>{
 
 const slugUrl = location.pathname.match(/^\/game-soundtracks\/album\/([^\/]+)/)[1];
-const slugSlugged = slugUrl.replaceAll(/[^a-zA-Z0-9_-]/g, "-");
-const slugWasModified = slugSlugged !== slugUrl;
+const slugDec = decodeURIComponent(slugUrl)
+const slugSlugged = slugDec.replaceAll(/[<>:"\/\\|?*]/g, "-");
+const slugWasModified = slugSlugged !== slugDec;
 const slugDir = slugSlugged + " ;khinsider";
 
 // Extract player's track list
